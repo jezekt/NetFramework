@@ -7,5 +7,6 @@ namespace JezekT.WPF.Core.MVVM.Commands
     {
         Task ExecuteAsync();
         bool CanExecute();
+        void RaiseCanExecuteChanged();
     }
 }

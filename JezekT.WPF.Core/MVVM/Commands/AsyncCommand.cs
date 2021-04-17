@@ -7,27 +7,14 @@ namespace JezekT.WPF.Core.MVVM.Commands
 {
     public class AsyncCommand : IAsyncCommand
     {
-        public event EventHandler CanExecuteChanged;
-
         private bool _isExecuting;
         private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
 
-        public AsyncCommand(
-            Func<Task> execute,
-            Func<bool> canExecute = null,
-            IErrorHandler errorHandler = null)
-        {
-            _execute = execute;
-            _canExecute = canExecute;
-            _errorHandler = errorHandler;
-        }
+        public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute()
-        {
-            return !_isExecuting && (_canExecute?.Invoke() ?? true);
-        }
+        public bool CanExecute() => !_isExecuting && (_canExecute?.Invoke() ?? true);
 
         public async Task ExecuteAsync()
         {
@@ -58,24 +45,21 @@ namespace JezekT.WPF.Core.MVVM.Commands
             }
         }
 
-        public void RaiseCanExecuteChanged()
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            });
-        }
+        public void RaiseCanExecuteChanged() => Application.Current.Dispatcher.Invoke(() => CanExecuteChanged?.Invoke(this, EventArgs.Empty));
+
 
         #region Explicit implementations
-        bool ICommand.CanExecute(object parameter)
-        {
-            return CanExecute();
-        }
+        bool ICommand.CanExecute(object parameter) => CanExecute();
 
-        async void ICommand.Execute(object parameter)
-        {
-            await ExecuteAsync();
-        }
+        async void ICommand.Execute(object parameter) => await ExecuteAsync();
         #endregion
+
+
+        public AsyncCommand(Func<Task> execute, Func<bool> canExecute = null, IErrorHandler errorHandler = null)
+        {
+            _execute = execute;
+            _canExecute = canExecute;
+            _errorHandler = errorHandler;
+        }
     }
 }

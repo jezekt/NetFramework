@@ -20,14 +20,8 @@ namespace JezekT.WPF.Core.MVVM.Commands
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute(parameter);
-        }
+        public bool CanExecute(object parameter) => _canExecute(parameter);
 
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
+        public void Execute(object parameter) => _execute(parameter);
     }
 }

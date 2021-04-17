@@ -1,8 +1,8 @@
-﻿using System;
+﻿using JezekT.WPF.Core.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Windows;
-using JezekT.WPF.Core.MVVM.ViewModels;
 
 namespace JezekT.WPF.Core.MVVM
 {
@@ -12,12 +12,11 @@ namespace JezekT.WPF.Core.MVVM
         private readonly Dictionary<ViewModelBase, Window> _viewViewModelDictionary;
         private ViewModelBase _mainViewModel;
 
-
         public void OpenWindow(ViewModelBase viewModel, bool modal = false)
         {
             if (viewModel == null) throw new ArgumentNullException();
             Contract.EndContractBlock();
-
+            
             var view = _getView(viewModel);
             if (_viewViewModelDictionary.ContainsKey(viewModel))
             {
@@ -29,7 +28,6 @@ namespace JezekT.WPF.Core.MVVM
             else
             {
                 _viewViewModelDictionary.Add(viewModel, view);
-                // _registerEvents(viewModel, view);
                 view.DataContext = viewModel;
 
                 if (_mainViewModel == null)

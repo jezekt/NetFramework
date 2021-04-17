@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace JezekT.WPF.Core.MVVM.ViewModels
 {
-    public abstract class ViewModelBase: INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public abstract string ViewTitle { get; }
         public readonly ViewViewModelManager ViewViewModelManager;

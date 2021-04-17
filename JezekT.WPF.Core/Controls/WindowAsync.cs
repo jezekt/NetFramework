@@ -5,9 +5,7 @@ namespace JezekT.WPF.Core.Controls
 {
     public class WindowAsync : Window
     {
-
-        public static readonly DependencyProperty TaskRunningProperty = DependencyProperty.Register(
-            "TaskRunning", typeof(bool), typeof(WindowAsync), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty TaskRunningProperty = DependencyProperty.Register(nameof(TaskRunning), typeof(bool), typeof(WindowAsync), new PropertyMetadata(false));
 
         public bool TaskRunning
         {
@@ -19,7 +17,7 @@ namespace JezekT.WPF.Core.Controls
         {
             base.OnClosing(e);
 
-            if (TaskRunning)
+            if (!TaskRunning)
             {
                 e.Cancel = true;
             }

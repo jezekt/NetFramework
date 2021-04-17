@@ -16,15 +16,7 @@ namespace JezekT.WPF.Core.MVVM.ViewModels
 
         public bool HasErrors => _errors.Count > 0;
 
-
-        public IEnumerable GetErrors(string propertyName)
-        {
-            if (_errors.ContainsKey(propertyName))
-            {
-                return _errors[propertyName];
-            }
-            return null;
-        }
+        public IEnumerable GetErrors(string propertyName) => _errors.ContainsKey(propertyName) ? _errors[propertyName] : null;
 
         protected void ValidateProperty(object value, [CallerMemberName] string propertyName = null, object instance = null)
         {
@@ -52,7 +44,7 @@ namespace JezekT.WPF.Core.MVVM.ViewModels
             }
         }
 
-        protected bool ValidateModel(object instance = null)
+        protected virtual bool ValidateModel(object instance = null)
         {
             _errors.Clear();
             instance = instance ?? this;
@@ -62,14 +54,14 @@ namespace JezekT.WPF.Core.MVVM.ViewModels
             {
                 foreach (var validationResult in validationResults)
                 {
-                    string property = validationResult.MemberNames.ElementAt(0);
-                    if (_errors.ContainsKey(property))
+                    var key = validationResult.MemberNames.ElementAt(0);
+                    if (_errors.ContainsKey(key))
                     {
-                        _errors[property].Add(validationResult.ErrorMessage);
+                        _errors[key].Add(validationResult.ErrorMessage);
                     }
                     else
                     {
-                        _errors.Add(property, new List<string> { validationResult.ErrorMessage });
+                        _errors.Add(key, new List<string> { validationResult.ErrorMessage });
                     }
                 }
             }
@@ -86,8 +78,8 @@ namespace JezekT.WPF.Core.MVVM.ViewModels
         protected virtual void OnErrorsChanged() { }
 
 
-        protected ValidatableViewModelBase(ViewViewModelManager viewViewModelManager) 
-            : base(viewViewModelManager)
+        protected ValidatableViewModelBase(ViewViewModelManager viewViewModelManager)
+          : base(viewViewModelManager)
         {
         }
     }
