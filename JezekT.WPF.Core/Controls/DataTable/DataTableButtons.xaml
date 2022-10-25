@@ -1,0 +1,15 @@
+<UserControl x:Class="JezekT.WPF.Core.Controls.DataTable.DataTableButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel x:Name="ButtonsPanel" Orientation="Horizontal">
+        <Button x:Name="AddButton" Width="35" Height="35" HorizontalAlignment="Left" Padding="3" Command="{Binding AddNewItem}" ToolTip="{Binding AddItemTooltip}">
+            <Image Source="../../Resources/PlusLarge.png"/>
+        </Button>
+        <Button x:Name="EditButton" Width="35" Height="35" HorizontalAlignment="Left" Padding="3" Margin="3,0,0,0" Command="{Binding EditSelectedItem}" ToolTip="{Binding EditItemTooltip}">
+            <Image Source="../../Resources/Edit.png"/>
+        </Button>
+        <Button x:Name="DeleteButton" Width="35" Height="35" HorizontalAlignment="Left" Padding="3" Margin="3,0,0,0" Command="{Binding DeleteSelectedItem}" ToolTip="{Binding DeleteItemTooltip}">
+            <Image Source="../../Resources/Trash.png"/>
+        </Button>
+    </StackPanel>
+</UserControl>
