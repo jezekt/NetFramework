@@ -17,7 +17,7 @@ namespace JezekT.WPF.Core.Controls
         {
             base.OnClosing(e);
 
-            if (!TaskRunning)
+            if (TaskRunning)
             {
                 e.Cancel = true;
             }
